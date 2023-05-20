@@ -1,9 +1,8 @@
 import React, { useLayoutEffect } from 'react';
 import { PillData } from './data';
-import { Pill } from './Pill';
+import { PILL_HEADER_WIDTH, Pill } from './Pill';
 import { useWindowWidth } from '../hooks/useWindowWidth';
 
-const PILL_HEADER_WIDTH = 22; // 8px for the margin + 13.(3)px for the letter H, rounded up
 
 interface PillsProps {
   pills: PillData[];

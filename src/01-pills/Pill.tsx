@@ -1,5 +1,8 @@
 import React, { forwardRef } from "react";
 
+
+export const PILL_HEADER_WIDTH = 22; // 8px for the margin + 13.(3)px for the letter H, rounded up
+
 interface PillProps {
   header: boolean;
   onClick?: () => void;
