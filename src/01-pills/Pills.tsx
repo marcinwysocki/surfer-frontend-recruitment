@@ -1,6 +1,7 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { PillData } from './data';
 import { Pill } from './Pill';
+import { useWindowWidth } from '../hooks/useWindowWidth';
 
 const PILL_HEADER_WIDTH = 22; // 8px for the margin + 13.(3)px for the letter H, approx. up
 
@@ -28,21 +29,6 @@ interface PillNode extends PillData {
 }
 
 type PillRefs = { [id: PillData['id']]: HTMLDivElement };
-
-export const useWindowWidth = (): number => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const updateWindowWidth = () => {
-    setWindowWidth(window.innerWidth);
-  };
-
-  useLayoutEffect(() => {
-    window.addEventListener('resize', updateWindowWidth);
-
-    return () => window.removeEventListener('resize', updateWindowWidth);
-  }, []);
-
-  return windowWidth;
-};
 
 const createPillNodes = (
   pills: PillData[],

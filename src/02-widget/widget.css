@@ -5,6 +5,15 @@
 
   max-width: 600px;
   width: 100%;
+
+  .iframe-container {
+    width: 100%;
+    overflow: overlay;
+  }
+
+  .iframe {
+    border: 0;
+  }
 }
 
 @media (max-width: 680px) {
