@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useWindowWidth } from '../hooks/useWindowWidth';
 import { IFrameEvent } from './types';
 
+import './iframe-app.css';
+
 export const IframeApp = () => {
   const windowWidth = useWindowWidth();
 
@@ -17,15 +19,7 @@ export const IframeApp = () => {
   }, [windowWidth]);
 
   return (
-    <div
-      style={{
-        backgroundColor: 'rebeccapurple',
-        color: 'white',
-        padding: '2rem',
-        borderRadius: '1rem',
-        fontSize: '2rem',
-      }}
-    >
+    <div className="iframe-app-container">
       Dynamic marketing content will be here
     </div>
   );
