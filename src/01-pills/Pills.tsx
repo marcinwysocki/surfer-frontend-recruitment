@@ -3,7 +3,7 @@ import { PillData } from './data';
 import { Pill } from './Pill';
 import { useWindowWidth } from '../hooks/useWindowWidth';
 
-const PILL_HEADER_WIDTH = 22; // 8px for the margin + 13.(3)px for the letter H, approx. up
+const PILL_HEADER_WIDTH = 22; // 8px for the margin + 13.(3)px for the letter H, rounded up
 
 interface PillsProps {
   pills: PillData[];
@@ -24,17 +24,17 @@ interface LayoutPillElement {
 
 type LayoutElement = LayoutBreakElement | LayoutPillElement;
 
-interface PillNode extends PillData {
+interface SizedPill extends PillData {
   maxWidth: number;
 }
 
 type PillRefs = { [id: PillData['id']]: HTMLDivElement };
 
-const createPillNodes = (
+const calculateMaxPillSizes = (
   pills: PillData[],
   pillRefs: PillRefs,
   headers: string[]
-): PillNode[] =>
+): SizedPill[] =>
   pills.map((pill) => {
     const pillNode = pillRefs[pill.id];
     const currentPillWidth = pillNode?.getBoundingClientRect().width;
@@ -45,9 +45,9 @@ const createPillNodes = (
     return { ...pill, maxWidth };
   });
 
-const createLayoutElements = (
+const buildLayoutRows = (
   containerWidth: number,
-  pillNodes: PillNode[]
+  pillNodes: SizedPill[]
 ): LayoutElement[] => {
   const { rows, currentRow } = pillNodes.reduce(
     ({ rows, currentRow }, pill) => {
@@ -105,9 +105,9 @@ export function Pills({ pills, headers, toggleHeader }: PillsProps) {
     }
 
     const containerWidth = containerNode.current.getBoundingClientRect().width;
-    const pillNodes = createPillNodes(pills, pillRefs.current, headers);
+    const sizedPills = calculateMaxPillSizes(pills, pillRefs.current, headers);
 
-    setLayoutElements(createLayoutElements(containerWidth, pillNodes));
+    setLayoutElements(buildLayoutRows(containerWidth, sizedPills));
   }, [pills, windowWidth]);
 
   const setPillRef = (id: PillData['id'], node: HTMLDivElement) => {
